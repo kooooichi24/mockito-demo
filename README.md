@@ -1,0 +1,5 @@
+# MockitoDemoApplication
+株価の詳細を返すストックサービスを題材とした、Mockitoを試すためのリポジトリ
+
+※Tutorialspointが展開しているMockitoのQuickGuideを参考にします。
+https://www.tutorialspoint.com/mockito/mockito_quick_guide.htm
