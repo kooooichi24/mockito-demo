@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 銘柄に関するクラス
+ * 銘柄に関するクラス。
  */
 @AllArgsConstructor
 @Data
