@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +29,9 @@ class MathApplicationTest {
         when(calcService.add(10.0,20.0)).thenReturn(30.00);
 
         // test the add functionality
-        assertEquals(mathApplication.add(10.0, 20.0),30.0,0);
+        assertEquals(calcService.add(10.0, 20.0),30.0,0);
+
+        // verify the behavior
+        verify(calcService).add(10.0, 20.0);
     }
 }
