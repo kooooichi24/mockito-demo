@@ -8,8 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("四則演算を扱うMathApplicationクラス")
@@ -28,10 +27,24 @@ class MathApplicationTest {
         // add the behavior of calc service to add two numbers
         when(calcService.add(10.0,20.0)).thenReturn(30.00);
 
+        // add the behavior of calc service to subtract two numbers
+        when(calcService.subtract(20.0, 10.0)).thenReturn(10.00);
+
         // test the add functionality
         assertEquals(calcService.add(10.0, 20.0),30.0,0);
+        assertEquals(calcService.add(10.0, 20.0),30.0,0);
+        assertEquals(calcService.add(10.0, 20.0),30.0,0);
 
-        // verify the behavior
-        verify(calcService).add(10.0, 20.0);
+        // test the subtract functionality
+        assertEquals(calcService.subtract(20.0, 10.0),10.0,0);
+
+        // default call count is 1
+        verify(calcService).subtract(20.0, 10.0);
+
+        // check if add function is called three times
+        verify(calcService, times(3)).add(10.0, 20.0);
+
+        // verify that method was never called on a mock
+        verify(calcService, never()).multiply(10.0, 20.0);
     }
 }
