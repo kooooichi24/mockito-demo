@@ -12,7 +12,7 @@ public class MathApplication {
     }
 
     public double subtract(double input1, double input2) {
-        return calculatorService.substract(input1, input2);
+        return calculatorService.subtract(input1, input2);
     }
 
     public double multiply(double input1, double input2) {

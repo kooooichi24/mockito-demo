@@ -21,7 +21,7 @@ public interface CalculatorService {
      * @param input2 値2
      * @return 値1から値2を減算した値
      */
-    public double substract(double input1, double input2);
+    public double subtract(double input1, double input2);
 
     /**
      * 2つの値を乗算するメソッド。

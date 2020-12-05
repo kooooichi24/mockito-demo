@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 /**
  * Portfolioクラスをテストするためのクラス。
  */
-class PortfolioTester {
+class PortfolioTest {
     Portfolio portfolio;
     StockService stockService;
 
     public static void main(String[] args) {
-        PortfolioTester tester = new PortfolioTester();
+        PortfolioTest tester = new PortfolioTest();
         tester.setup();
         System.out.println(tester.testMarketValue() ? "pass" : "fail");
     }
