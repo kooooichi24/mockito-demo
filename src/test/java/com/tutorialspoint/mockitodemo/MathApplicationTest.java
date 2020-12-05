@@ -38,13 +38,13 @@ class MathApplicationTest {
         // test the subtract functionality
         assertEquals(calcService.subtract(20.0, 10.0),10.0,0);
 
-        // default call count is 1
-        verify(calcService).subtract(20.0, 10.0);
+        // check a minimum 1 call count
+        verify(calcService, atLeastOnce()).subtract(20.0, 10.0);
 
-        // check if add function is called three times
-        verify(calcService, times(3)).add(10.0, 20.0);
+        // check if add function is called minimum 2 times
+        verify(calcService, atLeast(2)).add(10.0, 20.0);
 
-        // verify that method was never called on a mock
-        verify(calcService, never()).multiply(10.0, 20.0);
+        // check if add function is called maximum 3 times
+        verify(calcService, atMost(3)).add(10.0, 20.0);
     }
 }
