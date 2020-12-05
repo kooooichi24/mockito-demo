@@ -1,5 +1,6 @@
 package com.tutorialspoint.mockitodemo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,24 +14,28 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("四則演算を扱うMathApplicationクラス")
 class MathApplicationTest {
-
-    // @InjectMocks annotation is used to create and inject the mock object
-    @InjectMocks
-    private MathApplication mathApplication = new MathApplication();
-
-    // @Mock annotation is used to create the mock object to be injected
-    @Mock
+    private MathApplication mathApplication;
     private CalculatorService calcService;
 
-    @Test
-    public void test_addメソッドを呼び出すと例外処理となる() {
-        // add the behavior to throw exception
-        doThrow(new RuntimeException("Add operation not implemented"))
-                .when(calcService).add(10.0, 20.0);
+    @BeforeEach
+    public void setUp() {
+        mathApplication = new MathApplication();
+        calcService = mock(CalculatorService.class);
+        mathApplication.setCalculatorService(calcService);
+    }
 
-        // test the add functionality
-        assertThrows(RuntimeException.class, () -> {
-            calcService.add(10.0, 20.0);
-        });
+    @Test
+    public void test_addメソッドとsubtractメソッド() {
+        // add the behavior to add numbers
+        when(calcService.add(20.0, 10.0)).thenReturn(30.0);
+
+        // subtract the behavior to add numbers
+        when(calcService.subtract(20.0, 10.0)).thenReturn(10.0);
+
+        assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
+        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+
+        verify(calcService).add(20.0, 10.0);
+        verify(calcService).subtract(20.0, 10.0);
     }
 }
