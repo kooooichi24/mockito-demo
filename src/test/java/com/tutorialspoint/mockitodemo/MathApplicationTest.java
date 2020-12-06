@@ -21,47 +21,77 @@ class MathApplicationTest {
     @BeforeEach
     public void setUp() {
         mathApplication = new MathApplication();
-        calcService = mock(CalculatorService.class);
+        Calculator calculator = new Calculator();
+        calcService = spy(calculator);
         mathApplication.setCalculatorService(calcService);
     }
 
+//    @Test
+//    public void test_addメソッドとsubtractメソッド() {
+//        // add the behavior to add numbers
+//        when(calcService.add(20.0, 10.0)).thenReturn(30.0);
+//
+//        // subtract the behavior to add numbers
+//        when(calcService.subtract(20.0, 10.0)).thenReturn(10.0);
+//
+//        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+//        assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
+//
+//        // create an inOrder verifier for a single mock
+//        InOrder inOrder = inOrder(calcService);
+//
+//        // following will make sure that add is first called then subtract is called
+//        inOrder.verify(calcService).add(20.0, 10.0);
+//        inOrder.verify(calcService).subtract(20.0, 10.0);
+//    }
+//
+//    @Test
+//    public void test_2つの値の加算結果_Callbacks編() {
+//        // add the behavior to add numbers
+//        when(calcService.add(20.0, 10.0)).thenAnswer(new Answer<Double>() {
+//
+//            @Override
+//            public Double answer(InvocationOnMock invocationOnMock) throws Throwable {
+//                // get the arguments passed to mock
+//                Object[] args = invocationOnMock.getArguments();
+//
+//                // get the mock
+//                Object mock = invocationOnMock.getMock();
+//
+//                // return the result
+//                return 30.0;
+//            }
+//        });
+//
+//        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+//    }
+
     @Test
-    public void test_addメソッドとsubtractメソッド() {
-        // add the behavior to add numbers
-        when(calcService.add(20.0, 10.0)).thenReturn(30.0);
-
-        // subtract the behavior to add numbers
-        when(calcService.subtract(20.0, 10.0)).thenReturn(10.0);
-
+    public void test_2つの値の加算結果_Spying編() {
+        // perform operation on real object
+        // test the add functionality
         assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
-        assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
-
-        // create an inOrder verifier for a single mock
-        InOrder inOrder = inOrder(calcService);
-
-        // following will make sure that add is first called then subtract is called
-        inOrder.verify(calcService).add(20.0, 10.0);
-        inOrder.verify(calcService).subtract(20.0, 10.0);
     }
 
-    @Test
-    public void test_2つの値の加算結果_Callbacks編() {
-        // add the behavior to add numbers
-        when(calcService.add(20.0, 10.0)).thenAnswer(new Answer<Double>() {
+    class Calculator implements CalculatorService {
+        @Override
+        public double add(double input1, double input2) {
+            return input1 + input2;
+        }
 
-            @Override
-            public Double answer(InvocationOnMock invocationOnMock) throws Throwable {
-                // get the arguments passed to mock
-                Object[] args = invocationOnMock.getArguments();
+        @Override
+        public double subtract(double input1, double input2) {
+            throw new UnsupportedOperationException("Method not implemented yet!");
+        }
 
-                // get the mock
-                Object mock = invocationOnMock.getMock();
+        @Override
+        public double multiply(double input1, double input2) {
+            throw new UnsupportedOperationException("Method not implemented yet!");
+        }
 
-                // return the result
-                return 30.0;
-            }
-        });
-
-        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+        @Override
+        public double divide(double input1, double input2) {
+            throw new UnsupportedOperationException("Method not implemented yet!");
+        }
     }
 }
