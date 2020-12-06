@@ -5,7 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -40,5 +42,26 @@ class MathApplicationTest {
         // following will make sure that add is first called then subtract is called
         inOrder.verify(calcService).add(20.0, 10.0);
         inOrder.verify(calcService).subtract(20.0, 10.0);
+    }
+
+    @Test
+    public void test_2つの値の加算結果_Callbacks編() {
+        // add the behavior to add numbers
+        when(calcService.add(20.0, 10.0)).thenAnswer(new Answer<Double>() {
+
+            @Override
+            public Double answer(InvocationOnMock invocationOnMock) throws Throwable {
+                // get the arguments passed to mock
+                Object[] args = invocationOnMock.getArguments();
+
+                // get the mock
+                Object mock = invocationOnMock.getMock();
+
+                // return the result
+                return 30.0;
+            }
+        });
+
+        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
     }
 }
