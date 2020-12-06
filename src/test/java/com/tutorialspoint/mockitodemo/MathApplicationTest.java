@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,6 +46,14 @@ class MathApplicationTest {
     }
 
     @Test
+    public void test_2つの値の加算結果と減算結果_Resetting編() {
+        when(calcService.add(20.0, 10.0)).thenReturn(30.0);
+        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+        reset(calcService);
+        assertEquals(mathApplication.add(20.0, 10.0), 0, 0);
+    }
+
+    @Test
     public void test_2つの値の加算結果_Callbacks編() {
         // add the behavior to add numbers
         when(calcService.add(20.0, 10.0)).thenAnswer(new Answer<Double>() {
@@ -66,10 +75,14 @@ class MathApplicationTest {
     }
 
     @Test
-    public void test_2つの値の加算結果と減算結果_Resetting編() {
-        when(calcService.add(20.0, 10.0)).thenReturn(30.0);
-        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
-        reset(calcService);
-        assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+    public void test_2つの値の加算結果_BDD編() {
+        // given
+        given(calcService.add(20.0, 10.0)).willReturn(30.0);
+
+        // when
+        double result = calcService.add(20.0, 10.0);
+
+        // then
+        assertEquals(result, 30.0, 0);
     }
 }
